@@ -3,9 +3,11 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const mongoose = require('mongoose')
+require('dotenv').config()
 
-const mongoUrl=process.env.MONGODB_URI
-console.log('connecting.to', mongoUrl)
+const url=process.env.MONGODB_URI
+
+console.log('connecting.to', url)
 
 const blogSchema = mongoose.Schema({
   title: String,
@@ -16,8 +18,8 @@ const blogSchema = mongoose.Schema({
 
 const Blog = mongoose.model('Blog', blogSchema)
 
-// const mongoUrl = 'mongodb://localhost/bloglist'
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
+/* const mongoUrl = 'mongodb+srv://blog_list:1961dm20XX@cluster0.2m41j.mongodb.net/blog_list?retryWrites=true&w=majority' */
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
 
 app.use(cors())
 app.use(express.json())
