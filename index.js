@@ -4,6 +4,9 @@ const app = express()
 const cors = require('cors')
 const mongoose = require('mongoose')
 
+const mongoUrl=process.env.MONGODB_URI
+console.log('connecting.to', url)
+
 const blogSchema = mongoose.Schema({
   title: String,
   author: String,
