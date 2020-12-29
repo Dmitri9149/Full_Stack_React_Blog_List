@@ -9,7 +9,7 @@ const config = require('./utils/config')
 
 const url=process.env.MONGODB_URI
 
-console.log('connecting.to', url)
+logger.info('connecting.to', url)
 
 const blogSchema = mongoose.Schema({
   title: String,
