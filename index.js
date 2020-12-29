@@ -7,9 +7,7 @@ require('dotenv').config()
 const logger = require('./utils/logger')
 const config = require('./utils/config')
 
-const url=process.env.MONGODB_URI
-
-logger.info('connecting.to', url)
+logger.info('connecting.to', config.MONGODB_URI)
 
 const blogSchema = mongoose.Schema({
   title: String,
@@ -21,7 +19,7 @@ const blogSchema = mongoose.Schema({
 const Blog = mongoose.model('Blog', blogSchema)
 
 /* const mongoUrl = 'mongodb+srv://blog_list:1961dm20XX@cluster0.2m41j.mongodb.net/blog_list?retryWrites=true&w=majority' */
-mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
+mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
 
 app.use(cors())
 app.use(express.json())
