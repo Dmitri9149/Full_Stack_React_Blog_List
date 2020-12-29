@@ -3,6 +3,7 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const mongoose = require('mongoose')
+app.use(cors())
 
 const mongoUrl=process.env.MONGODB_URI
 console.log('connecting.to', url)
