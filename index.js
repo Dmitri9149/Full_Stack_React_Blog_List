@@ -4,6 +4,8 @@ const app = express()
 const cors = require('cors')
 const mongoose = require('mongoose')
 require('dotenv').config()
+const logger = require('./utils/logger')
+const config = require('./utils/config')
 
 const url=process.env.MONGODB_URI
 
