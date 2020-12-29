@@ -3,5 +3,5 @@ const info = () => {
 }
 
 module.exports = {
-    info, error
+    info
   }
