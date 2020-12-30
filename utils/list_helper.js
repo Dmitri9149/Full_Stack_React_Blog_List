@@ -12,6 +12,10 @@ const totalLikes = array => {
     : array.reduce(reducer, 0)
 }
 
+const favoriteBlog = array => {
+  return {}
+}
+
 module.exports = {
   dummy,
   totalLikes
