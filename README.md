@@ -3,8 +3,10 @@ For each blog we save the author, title, url, and amount of upvotes from users o
 The app may be easily modified to save some other interesting 'short_info'-s.
 
 The application approximatelly corresponds to what have to be done  
-in the course : 
+in the course project: 
 Full Stack Open 2020; Helsinki University , part 4 : https://fullstackopen.com/en/#course-contents  
+
+The 'jest' library is used for testing.
 
 The work is in progress.
 
