@@ -62,17 +62,28 @@ describe('favorite_blog', () => {
     }]
   
     test('when list has only one blog, it will be the favorite blog', () => {
+      const tobe = {
+        title: 'Go To Statement Considered Harmful',
+        author: 'Edsger W. Dijkstra',
+        likes: 5,
+      }
       const result = listHelper.favoriteBlog(listWithOneBlog)
-      expect(result).toBe({})
+      expect(result).toEqual(tobe)
     })
 
     test('of empty list is empty blog', () => {
       const result = listHelper.favoriteBlog([])
-      expect(result).toBe({})
+      expect(result).toEqual({})
     }) 
     
     test('of a bigger list is calculated right', () => {
+      const tobe = {
+        title: "Canonical string reduction", 
+        author: "Edsger W. Dijkstra", 
+        likes: 12, 
+        }
+      
       const result = listHelper.favoriteBlog(blogs)
-      expect(result).toBe({})
+      expect(result).toEqual(tobe)
     })
   })
