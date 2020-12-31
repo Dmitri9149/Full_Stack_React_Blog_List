@@ -13,7 +13,7 @@ const totalLikes = array => {
     : array.reduce(reducer, 0)
 }
 
-const favoriteBlogs = array => {
+const favoriteBlog = array => {
   const reducer = (acc, current) => {
     return current.likes > acc.likes
       ? { title:current.title, author:current.author, likes:current.likes }
