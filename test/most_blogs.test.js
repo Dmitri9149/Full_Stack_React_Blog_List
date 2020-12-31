@@ -77,8 +77,8 @@ describe('most_blogs', () => {
     
     test('of a bigger list is calculated right', () => {
       const tobe = {
-        author: "Edsger W. Dijkstra", 
-        likes: 24, 
+        author: "Robert C. Martin",           
+        blogs:3 
         }
       
       const result = listHelper.mostBlogs(blogs)
