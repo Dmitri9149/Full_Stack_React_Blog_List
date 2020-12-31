@@ -37,11 +37,11 @@ const groupByAuthorCollection = blogs => {
 
 const mostBlogs = blogs => {
   const collection = groupByAuthorCollection(blogs)
-  const reducer = (sum, blog) => {
-    if(sum[1] < blog[1]) {
-      return blog
+  const reducer = (accum, current) => {
+    if(accum[1] < current[1]) {
+      return current
     } else {
-      return sum
+      return accum
     }
   }
 
@@ -54,11 +54,31 @@ const mostBlogs = blogs => {
 
 }
 
+const mostLikes = blogs => {
+  const collection = groupByAuthorCollection(blogs)
+  const reducer = (accum, current) => {
+    if(accum[2] < current[2]) {
+      return current
+    } else {
+      return accum
+    }
+  }
+
+  return collection.length === 0
+    ? {}
+    : {
+      author:collection.reduce(reducer, collection[0])[0],
+      likes:collection.reduce(reducer, collection[0])[2]
+    }
+
+}
+
 
 
 module.exports = {
   dummy,
   totalLikes,
   favoriteBlog,
-  mostBlogs
+  mostBlogs,
+  mostLikes
 }
