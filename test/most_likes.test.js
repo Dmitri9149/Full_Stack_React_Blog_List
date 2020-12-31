@@ -78,7 +78,7 @@ describe('most_likes', () => {
     test('of a bigger list is calculated right', () => {
       const tobe = {
         author: 'Edsger W. Dijkstra',                     
-        likes:24 
+        likes:17 
         }
       
       const result = listHelper.mostLikes(blogs)
