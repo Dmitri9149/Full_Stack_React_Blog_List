@@ -13,7 +13,7 @@ test('blogs are returned as json', async () => {
 
 test('the returned "id" is "id', async () => {
   const response = api.get('api/blogs')
-  const id = response[0].id
+  const id = response.body[0].id
   expect(id).toBeDefined()
 
 })
