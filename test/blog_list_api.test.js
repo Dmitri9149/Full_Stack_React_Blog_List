@@ -5,6 +5,29 @@ const app = require('../app')
 
 const api = supertest(app)
 
+const Blog = require('../models/blog')
+const initialBlogs = [
+  {
+    title: 'HTML is easy',
+    likes: 5,
+    url: "url",
+    author: "some_author"
+  },
+  {
+    title: 'Browser can execute only Javascript',
+    likes: 10,
+    url: "some_url",
+    author: "second_author"
+  },
+]
+beforeEach(async () => {
+  await Blog.deleteMany({})
+  let blogObject = new Note(initialBlogs[0])
+  await blogObject.save()
+  blogObject = new Blog(initialBlogs[1])
+  await blogObject.save()
+})
+
 test('blogs are returned as json', async () => {
   await api
     .get('/api/blogs')
