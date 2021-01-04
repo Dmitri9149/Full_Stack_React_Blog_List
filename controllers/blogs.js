@@ -9,14 +9,27 @@ await Blog
     })
 })
 
-blogsRouter.post('/', (request, response) => {
-  const blog = new Blog(request.body)
+blogsRouter.post('/', async (request, response, next) => {
+  const body = request.body
 
-  blog
-    .save()
-    .then(result => {
-      response.status(201).json(result.toJSON())
-    })
+  const blog = new Blog({
+    title:body.title,
+    author:body.author,
+    url:body.url,
+    likes:body.likes === undefined ? 0 : body.likes
+  })
+
+try {
+  if (blog.title === undefined || blog.url === undefined) {
+    await response.status(400).end() 
+  } else { 
+  const savedBlog = await blog.save()
+  response.status(201).json(savedBlog.toJSON())  
+  }
+} catch(exeption) {
+  next(exeption)
+}
+
 })
 
 module.exports = blogsRouter
