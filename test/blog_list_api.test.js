@@ -17,7 +17,7 @@ test('there are two blogs', async () => {
   expect(response.body).toHaveLength(2)
 })
 
-test('the returned "id" is "id', async () => {
+test('the returned name of id is "id', async () => {
   const response = await api.get('/api/blogs')
   console.log('response', response.body)
   const id = response.body[0].id
