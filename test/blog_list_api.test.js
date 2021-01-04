@@ -1,3 +1,4 @@
+const { response } = require('express')
 const mongoose = require('mongoose')
 const supertest = require('supertest')
 const app = require('../app')
@@ -27,6 +28,17 @@ test('the returned name of id is "id', async () => {
   expect(id).toBeDefined()
 
 })
+
+/*
+test('after post- addition of a blog ,the length increase by 1', async () => {
+  const response_before = await api.get('/api/blogs')
+  const length_before = length(response_before)
+
+
+
+  expect(response.body).toHaveLength(2)
+})
+*/
 
 
 afterAll(() => {
