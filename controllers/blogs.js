@@ -9,8 +9,8 @@ await Blog
     })
 })
 
-blogsRouter.post('/', async (request, response) => {
-  const blog = await new Blog(request.body)
+blogsRouter.post('/', (request, response) => {
+  const blog = new Blog(request.body)
 
   blog
     .save()
