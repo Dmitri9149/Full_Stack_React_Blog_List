@@ -81,6 +81,27 @@ test('if likes is not defined in post- , it will be 0', async () => {
  
 })
 
+test('blog without title and url is not added', async () => {
+
+  const newBlog = {
+    author: 'Tutti',
+    likes:1000000
+  }
+
+  const response_before = await api.get('/api/blogs')
+  const length_before = response_before.body.length
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(400)
+
+  const response_after = await api.get('/api/blogs')
+  const length_after = response_after.body.length
+
+  expect(length_after).toBe(length_before)
+})
+
 afterAll(() => {
   mongoose.connection.close()
 })
