@@ -55,7 +55,31 @@ test('after post- addition of a blog ,the length increase by 1', async () => {
  
 })
 
+test('if likes is not defined in post- , it will be 0', async () => {
+  const response_before = await api.get('/api/blogs')
+  const length_before = response_before.body.length
 
+  const newBlog = {
+    title: 'test for default of likes',
+    author: "full_stack",
+    url:"some_url"
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(201)
+    .expect('Content-Type', /application\/json/)
+
+  const response_after = await api.get('/api/blogs')
+  const titles = response_after.body.map(x => x.title)
+  const likes = response_after.body.map(x => x.likes)
+
+  expect(response_after.body).toHaveLength(length_before + 1)
+  expect(titles).toContain('test for default of likes')
+  expect(likes[length_before]).toBe(0)
+ 
+})
 
 afterAll(() => {
   mongoose.connection.close()
