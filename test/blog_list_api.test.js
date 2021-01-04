@@ -102,7 +102,6 @@ test('if likes is not defined in post- , it will be 0', async () => {
  
 })
 
-/*
 test('blog without title and url is not added', async () => {
 
   const newBlog = {
@@ -123,7 +122,7 @@ test('blog without title and url is not added', async () => {
 
   expect(length_after).toBe(length_before)
 })
-*/
+
 
 afterAll(() => {
   mongoose.connection.close()
