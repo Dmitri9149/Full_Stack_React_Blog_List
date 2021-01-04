@@ -29,16 +29,32 @@ test('the returned name of id is "id', async () => {
 
 })
 
-/*
+
 test('after post- addition of a blog ,the length increase by 1', async () => {
   const response_before = await api.get('/api/blogs')
   const length_before = length(response_before)
 
+  const newBlog = {
+    title: 'async/await simplifies making async calls',
+    likes: 10,
+    author: "full_stack",
+    url:"some_url"
+  }
 
+  await api
+    .post('api/blogs')
+    .send(newBlog)
+    .expect(200)
+    .expect('Content-Type', /application\/json/)
 
-  expect(response.body).toHaveLength(2)
+  const response_after = await api.get('/api/blogs')
+  const titles = response_after.body.map(x => x.title)
+
+  expect(response_after.body).toHaveLength(length_before + 1)
+  expect(titles).toContain('async/await simplifies making async calls')
+ 
 })
-*/
+
 
 
 afterAll(() => {
