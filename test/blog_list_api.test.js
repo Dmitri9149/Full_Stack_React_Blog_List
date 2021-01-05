@@ -113,7 +113,6 @@ describe('deletion of a blog', () => {
   test('succeeds with status code 204 if id is valid', async () => {
     const blogsAtStart = await listHelper.blogsInDb()
     const blogToDelete = blogsAtStart[0]
-    console.log('id to delete !!!!!!', blogToDelete.id)
 
     await api
       .delete(`/api/blogs/${blogToDelete.id}`)
