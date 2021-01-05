@@ -144,6 +144,8 @@ describe('update of a blog', () => {
     const lengthBefore = blogsBefore.length
     const blogToUpdate = blogsBefore[0]
 
+    console.log('blogs before !!!', blogToUpdate)
+
 
     await api
       .put(`/api/blogs/${blogToUpdate.id}`)
