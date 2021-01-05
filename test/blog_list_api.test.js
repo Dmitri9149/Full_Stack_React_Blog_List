@@ -2,10 +2,9 @@ const { response } = require('express')
 const mongoose = require('mongoose')
 const supertest = require('supertest')
 const app = require('../app')
-
 const api = supertest(app)
-
 const Blog = require('../models/blog')
+const listHelper = require('../utils/list_helper')
 const initialBlogs = [
   {
     title: 'HTML is easy',
@@ -125,7 +124,7 @@ test('blog without title and url is not added', async () => {
 
 describe('deletion of a blog', () => {
   test('succeeds with status code 204 if id is valid', async () => {
-    const blogsAtStart = await list_helper.blogsInDb()
+    const blogsAtStart = await listHelper.blogsInDb()
     const blogToDelete = blogsAtStart[0]
 
     await api
