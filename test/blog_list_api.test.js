@@ -140,7 +140,7 @@ describe('update of a blog', () => {
       likes: 100
     }
 
-    const blogsBefore = await helper.blogsInDb()
+    const blogsBefore = await listHelper.blogsInDb()
     const lengthBefore = blogsBefore.length
     const blogToUpdate = blogsBefore[0]
 
@@ -151,7 +151,7 @@ describe('update of a blog', () => {
       .expect(200)
       .expect('Content-Type', /application\/json/)
 
-    const blogsAfter = await helper.blogsInDb()
+    const blogsAfter = await listHelper.blogsInDb()
     const lengthAfter = blogsAfter.length
     expect(lengthAfter).toBe(lengthBefore)
 
