@@ -130,6 +130,35 @@ describe('deletion of a blog', () => {
   })
 })
 
+describe('update of a blog', () => {
+  test('a blog with known id can be updated  ', async () => {
+
+    const newBlog = {
+      title: 'Type wars',
+      author: 'Robert C. Martin',
+      url: 'http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html',
+      likes: 100
+    }
+
+    const blogsBefore = await helper.blogsInDb()
+    const lengthBefore = blogsBefore.length
+    const blogToUpdate = blogsBefore[0]
+
+
+    await api
+      .put(`/api/blogs/${blogToUpdate.id}`)
+      .send(newBlog)
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
+
+    const blogsAfter = await helper.blogsInDb()
+    const lengthAfter = blogsAfter.length
+    expect(lengthAfter).toBe(lengthBefore)
+
+    expect(blogsAfter[0].likes).toBe(100)
+  })
+
+})
 
 
 
