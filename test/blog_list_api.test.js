@@ -8,9 +8,9 @@ const listHelper = require('../utils/list_helper')
 
 beforeEach(async () => {
   await Blog.deleteMany({})
-  let blogObject = new Blog(initialBlogs[0])
+  let blogObject = new Blog(listHelper.initialBlogs[0])
   await blogObject.save()
-  blogObject = new Blog(initialBlogs[1])
+  blogObject = new Blog(listHelper.initialBlogs[1])
   await blogObject.save()
 })
 
