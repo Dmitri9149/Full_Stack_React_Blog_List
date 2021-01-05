@@ -39,7 +39,7 @@ blogsRouter.delete('/:id', async (request, response, next) => {
   }
 })
 
-app.put('/:id', async (request, response, next) => {
+blogsRouter.put('/:id', async (request, response, next) => {
   try {
     const body = request.body
 
