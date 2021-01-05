@@ -5,6 +5,7 @@ const app = require('../app')
 const api = supertest(app)
 const Blog = require('../models/blog')
 const listHelper = require('../utils/list_helper')
+jest.useFakeTimers()
 
 beforeEach(async () => {
     await Blog.deleteMany({})
@@ -14,7 +15,7 @@ beforeEach(async () => {
     await blogObject.save()
   })
 
-describe('update of a blog', () => {
+describe('blog updating', () => {
     test('a blog with known id can be updated  ', async () => {
   
       const newBlog = {
@@ -25,8 +26,8 @@ describe('update of a blog', () => {
       }
   
       const blogsBefore = await listHelper.blogsInDb()
-      const lengthBefore = blogsBefore.length
-      const blogToUpdate = blogsBefore[0]
+      const lengthBefore = await blogsBefore.length
+      const blogToUpdate = await blogsBefore[0]
   
       console.log('blogs before !!!', blogToUpdate)
   
@@ -48,6 +49,6 @@ describe('update of a blog', () => {
   
   
   
-  afterAll(() => {
-    mongoose.connection.close()
-  })
+afterAll(() => {
+mongoose.connection.close()
+})
