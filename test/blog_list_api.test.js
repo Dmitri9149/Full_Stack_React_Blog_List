@@ -5,20 +5,7 @@ const app = require('../app')
 const api = supertest(app)
 const Blog = require('../models/blog')
 const listHelper = require('../utils/list_helper')
-const initialBlogs = [
-  {
-    title: 'HTML is easy',
-    likes: 5,
-    url: "url",
-    author: "some_author"
-  },
-  {
-    title: 'Browser can execute only Javascript',
-    likes: 10,
-    url: "some_url",
-    author: "second_author"
-  },
-]
+
 beforeEach(async () => {
   await Blog.deleteMany({})
   let blogObject = new Blog(initialBlogs[0])

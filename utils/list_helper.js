@@ -74,9 +74,33 @@ const mostLikes = blogs => {
 
 }
 
+const initialBlogs = [
+  {
+    title: 'HTML is easy',
+    likes: 5,
+    url: "url",
+    author: "some_author"
+  },
+  {
+    title: 'Browser can execute only Javascript',
+    likes: 10,
+    url: "some_url",
+    author: "second_author"
+  },
+]
+
 const blogsInDb = async () => {
   const blogs = await Blog.find({})
   return blogs.map(blog => blog.toJSON())
+}
+
+
+const nonExistingId = async () => {
+  const note = new Note({ content: 'willremovethissoon', date: new Date() })
+  await note.save()
+  await note.remove()
+
+  return note._id.toString()
 }
 
 
