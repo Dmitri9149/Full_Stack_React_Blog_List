@@ -2,29 +2,15 @@ const { response } = require('express')
 const mongoose = require('mongoose')
 const supertest = require('supertest')
 const app = require('../app')
-
 const api = supertest(app)
-
 const Blog = require('../models/blog')
-const initialBlogs = [
-  {
-    title: 'HTML is easy',
-    likes: 5,
-    url: "url",
-    author: "some_author"
-  },
-  {
-    title: 'Browser can execute only Javascript',
-    likes: 10,
-    url: "some_url",
-    author: "second_author"
-  },
-]
+const listHelper = require('../utils/list_helper')
+
 beforeEach(async () => {
   await Blog.deleteMany({})
-  let blogObject = new Blog(initialBlogs[0])
+  let blogObject = new Blog(listHelper.initialBlogs[0])
   await blogObject.save()
-  blogObject = new Blog(initialBlogs[1])
+  blogObject = new Blog(listHelper.initialBlogs[1])
   await blogObject.save()
 })
 
@@ -122,6 +108,30 @@ test('blog without title and url is not added', async () => {
 
   expect(length_after).toBe(length_before)
 })
+
+describe('deletion of a blog', () => {
+  test('succeeds with status code 204 if id is valid', async () => {
+    const blogsAtStart = await listHelper.blogsInDb()
+    const blogToDelete = blogsAtStart[0]
+    console.log('id to delete !!!!!!', blogToDelete.id)
+
+    await api
+      .delete(`/api/blogs/${blogToDelete.id}`)
+      .expect(204)
+
+    const blogsAtEnd = await listHelper.blogsInDb()
+
+    expect(blogsAtEnd).toHaveLength(
+      listHelper.initialBlogs.length - 1
+    )
+
+    const titles = blogsAtEnd.map(r => r.title)
+
+    expect(titles).not.toContain(blogToDelete.title)
+  })
+})
+
+
 
 
 afterAll(() => {
