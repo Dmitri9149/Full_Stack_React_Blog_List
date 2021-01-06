@@ -7,12 +7,12 @@ const Blog = require('../models/blog')
 const listHelper = require('../utils/list_helper')
 
 beforeEach(async () => {
-    await Blog.deleteMany({})
-    let blogObject = new Blog(listHelper.initialBlogs[0])
+  await Blog.deleteMany({})
+  for (let blog of listHelper.initialBlogs) {
+    let blogObject = new Blog(blog)
     await blogObject.save()
-    blogObject = new Blog(listHelper.initialBlogs[1])
-    await blogObject.save()
-  })
+  }
+})
 
 describe('blog updating', () => {
     test('a blog with known id can be updated  ', async () => {
