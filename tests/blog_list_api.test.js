@@ -154,8 +154,28 @@ describe('update of a blog', () => {
     expect(lengthAfter).toBe(lengthBefore)
     expect(blogsAfter[0].likes).toBe(100)
   })
-
 })
+
+describe('bad id', () => {
+  test('fails with statuscode 404 if note does not exist', async () => {
+    const validNonexistingId = await listHelper.nonExistingId()
+
+    console.log(validNonexistingId)
+
+    await api
+      .get(`/api/blogs/${validNonexistingId}`)
+      .expect(404)
+  })
+
+  test('fails with statuscode 404 not found', async () => {
+    const invalidId = '5a3d5da59070081a82a3445'
+
+    await api
+      .get(`/api/blogs/${invalidId}`)
+      .expect(404)
+  })
+})
+
 
 afterAll(() => {
   mongoose.connection.close()
