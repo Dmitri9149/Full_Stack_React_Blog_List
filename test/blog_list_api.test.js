@@ -132,21 +132,17 @@ describe('deletion of a blog', () => {
 
 describe('update of a blog', () => {
   test('a blog with known id can be updated  ', async () => {
-
     const newBlog = {
       title: 'Type wars',
       author: 'Robert C. Martin',
       url: 'http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html',
       likes: 100
     }
-
     const blogsBefore = await listHelper.blogsInDb()
     const lengthBefore = blogsBefore.length
     const blogToUpdate = blogsBefore[0]
 
     console.log('blogs before !!!', blogToUpdate)
-
-
     await api
       .put(`/api/blogs/${blogToUpdate.id}`)
       .send(newBlog)
@@ -156,13 +152,10 @@ describe('update of a blog', () => {
     const blogsAfter = await listHelper.blogsInDb()
     const lengthAfter = blogsAfter.length
     expect(lengthAfter).toBe(lengthBefore)
-
     expect(blogsAfter[0].likes).toBe(100)
   })
 
 })
-
-
 
 afterAll(() => {
   mongoose.connection.close()
