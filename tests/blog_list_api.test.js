@@ -8,10 +8,10 @@ const listHelper = require('../utils/list_helper')
 
 beforeEach(async () => {
   await Blog.deleteMany({})
-  let blogObject = new Blog(listHelper.initialBlogs[0])
-  await blogObject.save()
-  blogObject = new Blog(listHelper.initialBlogs[1])
-  await blogObject.save()
+  for (let blog of listHelper.initialBlogs) {
+    let blogObject = new Blog(blog)
+    await blogObject.save()
+  }
 })
 
 test('blogs are returned as json', async () => {
