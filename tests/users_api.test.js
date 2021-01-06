@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt')
 const User = require('../models/user')
+const listHelper = require('../utils/list_helper')
 
 //...
 
@@ -34,4 +35,8 @@ describe('when there is initially one user at db', () => {
     const usernames = usersAtEnd.map(u => u.username)
     expect(usernames).toContain(newUser.username)
   })
+})
+
+afterAll(() => {
+  mongoose.connection.close()
 })
