@@ -5,7 +5,6 @@ const app = require('../app')
 const api = supertest(app)
 const Blog = require('../models/blog')
 const listHelper = require('../utils/list_helper')
-jest.useFakeTimers()
 
 beforeEach(async () => {
     await Blog.deleteMany({})
