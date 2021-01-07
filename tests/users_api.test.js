@@ -1,11 +1,10 @@
-const { response } = require('express')
-const mongoose = require('mongoose')
 const supertest = require('supertest')
+const mongoose = require('mongoose')
+const listHelper = require('../utils/list_helper')
 const app = require('../app')
 const api = supertest(app)
-const bcrypt = require('bcrypt')
 const User = require('../models/user')
-const listHelper = require('../utils/list_helper')
+const bcrypt = require('bcrypt')
 
 //...
 
@@ -34,6 +33,7 @@ describe('when there is initially one user at db', () => {
       .expect(200)
       .expect('Content-Type', /application\/json/)
 
+
     const usersAtEnd = await listHelper.usersInDb()
     expect(usersAtEnd).toHaveLength(usersAtStart.length + 1)
 
@@ -55,6 +55,7 @@ describe('when there is initially one user at db', () => {
       .send(newUser)
       .expect(400)
       .expect('Content-Type', /application\/json/)
+
 
     expect(result.body.error).toContain('`username` to be unique')
 
