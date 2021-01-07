@@ -83,6 +83,27 @@ describe('when there is initially one user at db', () => {
     expect(usersAtEnd.length).toBe(usersAtStart.length)
   })
 
+  test('creation fails with proper statuscode and message if username is less than 3', async () => {
+    const usersAtStart = await listHelper.usersInDb()
+
+    const newUser = {
+      username: 'ro',
+      name: 'SuperuserRo',
+      password: 'salainenRo',
+    }
+
+    const result = await api
+      .post('/api/users')
+      .send(newUser)
+      .expect(400)
+      .expect('Content-Type', /application\/json/)
+
+    expect(result.body.error).toContain('Path `username` (`ro`) is shorter than')
+
+    const usersAtEnd = await listHelper.usersInDb()
+    expect(usersAtEnd.length).toBe(usersAtStart.length)
+  })
+
 })
 
 afterAll(() => {
