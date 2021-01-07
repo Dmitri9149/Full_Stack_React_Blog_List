@@ -42,7 +42,7 @@ describe('when there is initially one user at db', () => {
   })
 
   test('creation fails with proper statuscode and message if username already taken', async () => {
-    const usersAtStart = await helper.usersInDb()
+    const usersAtStart = await listHelper.usersInDb()
 
     const newUser = {
       username: 'root',
