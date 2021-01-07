@@ -58,7 +58,7 @@ describe('when there is initially one user at db', () => {
 
     expect(result.body.error).toContain('`username` to be unique')
 
-    const usersAtEnd = await helper.usersInDb()
+    const usersAtEnd = await listHelper.usersInDb()
     expect(usersAtEnd).toHaveLength(usersAtStart.length)
   })
 
