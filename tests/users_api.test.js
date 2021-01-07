@@ -62,6 +62,27 @@ describe('when there is initially one user at db', () => {
     expect(usersAtEnd).toHaveLength(usersAtStart.length)
   })
 
+  test('creation fails with proper statuscode and message if username is undefined', async () => {
+    const usersAtStart = await listHelper.usersInDb()
+
+    const newUser = {
+      username: null,
+      name: 'Superuser',
+      password: 'salainenNull',
+    }
+
+    const result = await api
+      .post('/api/users')
+      .send(newUser)
+      .expect(400)
+      .expect('Content-Type', /application\/json/)
+
+    expect(result.body.error).toContain('Path `username` is required')
+
+    const usersAtEnd = await listHelper.usersInDb()
+    expect(usersAtEnd.length).toBe(usersAtStart.length)
+  })
+
 })
 
 afterAll(() => {
