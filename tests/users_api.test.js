@@ -6,15 +6,18 @@ const api = supertest(app)
 const User = require('../models/user')
 const bcrypt = require('bcrypt')
 
-//...
-
 describe('when there is initially one user at db', () => {
   beforeEach(async () => {
     await User.deleteMany({})
+    const saltRounds = 10
+    const passwordHash = await bcrypt.hash('sekret', saltRounds)
 
-    const passwordHash = await bcrypt.hash('sekret', 10)
-    const user = new User({ username: 'root', passwordHash })
-
+    const user = new User ({
+      username:'root',
+      name:'superuser',
+      password:'sekret',
+      passwordHash
+    })
     await user.save()
   })
 
@@ -33,14 +36,12 @@ describe('when there is initially one user at db', () => {
       .expect(200)
       .expect('Content-Type', /application\/json/)
 
-
     const usersAtEnd = await listHelper.usersInDb()
-    expect(usersAtEnd).toHaveLength(usersAtStart.length + 1)
+    expect(usersAtEnd.length).toBe(usersAtStart.length + 1)
 
     const usernames = usersAtEnd.map(u => u.username)
     expect(usernames).toContain(newUser.username)
   })
-
   test('creation fails with proper statuscode and message if username already taken', async () => {
     const usersAtStart = await listHelper.usersInDb()
 
@@ -56,13 +57,11 @@ describe('when there is initially one user at db', () => {
       .expect(400)
       .expect('Content-Type', /application\/json/)
 
-
     expect(result.body.error).toContain('`username` to be unique')
 
     const usersAtEnd = await listHelper.usersInDb()
-    expect(usersAtEnd).toHaveLength(usersAtStart.length)
+    expect(usersAtEnd.length).toBe(usersAtStart.length)
   })
-
 })
 
 afterAll(() => {
