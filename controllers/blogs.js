@@ -16,7 +16,7 @@ blogsRouter.post('/', async (request, response, next) => {
 
   const users = await User.find({})
   const user = users[0]       
-
+/* first user is used as blogs creator , it is for the token testing*/
   const blog = new Blog({
     title:body.title,
     author:body.author,
