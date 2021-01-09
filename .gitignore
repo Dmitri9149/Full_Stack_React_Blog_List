@@ -121,3 +121,5 @@ dist
 
 ## the file for testing some functionality of MongoDB
 .mongo_tmp.js
+## requests to make users with password etc.. not to reveal
+requests/post_user_login.rest
