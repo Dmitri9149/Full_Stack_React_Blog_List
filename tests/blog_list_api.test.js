@@ -19,10 +19,10 @@ beforeAll((done) => {
       password: 'sekret',
     })
     .end((err, response) => {
-      token = response.body.token; // save the token!
-      done();
-    });
-});
+      token = response.body.token // save the token!
+      done()
+    })
+})
 
 beforeEach(async () => {
   await Blog.deleteMany({})
@@ -30,22 +30,6 @@ beforeEach(async () => {
     let blogObject = new Blog(blog)
     await blogObject.save()
 
-/*  await api
-  .post('/login')
-  .send({
-    username: 'root',
-    password: 'sekret',
-  })
-  .end((err, response) => {
-    token = response.body.token; // save the token!
-    done();
-  });
-
-    await User.deleteMany({})
-    const passwordHash = await bcrypt.hash('sekret', 10)
-    const user = new User({ username: 'root', passwordHash })
-    await user.save()
-*/
   }
 })
 
@@ -113,6 +97,7 @@ test('if likes is not defined in post- , it will be 0', async () => {
 
   await api
     .post('/api/blogs')
+    .set('Authorization', `Bearer ${token}`)
     .send(newBlog)
     .expect(201)
     .expect('Content-Type', /application\/json/)
@@ -139,6 +124,7 @@ test('blog without title and url is not added', async () => {
 
   await api
     .post('/api/blogs')
+    .set('Authorization', `Bearer ${token}`)
     .send(newBlog)
     .expect(400)  
 
