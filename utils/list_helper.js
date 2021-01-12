@@ -1,3 +1,5 @@
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
 const Blog = require('../models/blog')
 const User = require('../models/user')
 const _ = require('lodash')
@@ -109,6 +111,17 @@ const usersInDb = async () => {
   return users.map(u => u.toJSON())
 }
 
+const sampleToken = async() => {
+  const user_back = await User.findOne({ username:'root' })
+  const userForToken = {
+    username: 'root',
+    id: user_back._id,
+  }
+  const token = jwt.sign(userForToken, process.env.SECRET)
+
+  return token
+}
+
 module.exports = {
   dummy,
   totalLikes,
@@ -118,6 +131,7 @@ module.exports = {
   blogsInDb,
   nonExistingId,
   initialBlogs,
-  usersInDb
+  usersInDb,
+  sampleToken
 
 }

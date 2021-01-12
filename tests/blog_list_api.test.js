@@ -1,16 +1,51 @@
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
 const { response } = require('express')
 const mongoose = require('mongoose')
 const supertest = require('supertest')
 const app = require('../app')
 const api = supertest(app)
 const Blog = require('../models/blog')
+const User = require('../models/user')
 const listHelper = require('../utils/list_helper')
+
+let token;
+
+beforeAll((done) => {
+  api
+    .post('/api/login')
+    .send({
+      username: 'root',
+      password: 'sekret',
+    })
+    .end((err, response) => {
+      token = response.body.token; // save the token!
+      done();
+    });
+});
 
 beforeEach(async () => {
   await Blog.deleteMany({})
   for (let blog of listHelper.initialBlogs) {
     let blogObject = new Blog(blog)
     await blogObject.save()
+
+/*  await api
+  .post('/login')
+  .send({
+    username: 'root',
+    password: 'sekret',
+  })
+  .end((err, response) => {
+    token = response.body.token; // save the token!
+    done();
+  });
+
+    await User.deleteMany({})
+    const passwordHash = await bcrypt.hash('sekret', 10)
+    const user = new User({ username: 'root', passwordHash })
+    await user.save()
+*/
   }
 })
 
@@ -48,8 +83,12 @@ test('after post- addition of a blog ,the length increase by 1', async () => {
     url:"some_url"
   }
 
+/*  const token = await listHelper.sampleToken()  */
+  console.log('token!!!!', token)
+
   await api
     .post('/api/blogs')
+    .set('Authorization', `Bearer ${token}`)
     .send(newBlog)
     .expect(201)
     .expect('Content-Type', /application\/json/)
