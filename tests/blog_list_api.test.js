@@ -10,18 +10,19 @@ const User = require('../models/user')
 const listHelper = require('../utils/list_helper')
 
 let token;
+const test_user = process.env.TEST_USER
+const test_password = process.env.TEST_PASSWORD
 
-beforeAll((done) => {
-  api
+const data = { username: 'rooot', password: 'sekret'}
+
+
+beforeAll(async () => {
+  const response = await api
     .post('/api/login')
-    .send({
-      username: 'root',
-      password: 'sekret',
-    })
-    .end((err, response) => {
-      token = response.body.token // save the token!
-      done()
-    })
+    .send(data)
+
+  token = response.token
+
 })
 
 beforeEach(async () => {

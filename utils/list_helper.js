@@ -111,16 +111,7 @@ const usersInDb = async () => {
   return users.map(u => u.toJSON())
 }
 
-const sampleToken = async() => {
-  const user_back = await User.findOne({ username:'root' })
-  const userForToken = {
-    username: 'root',
-    id: user_back._id,
-  }
-  const token = jwt.sign(userForToken, process.env.SECRET)
 
-  return token
-}
 
 module.exports = {
   dummy,
@@ -131,7 +122,6 @@ module.exports = {
   blogsInDb,
   nonExistingId,
   initialBlogs,
-  usersInDb,
-  sampleToken
+  usersInDb
 
 }
