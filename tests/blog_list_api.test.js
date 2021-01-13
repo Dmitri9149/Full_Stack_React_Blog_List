@@ -19,9 +19,9 @@ const data = { username: test_user, password: test_password}
 beforeAll(async () => {
   await User.deleteMany({})
   const passwordHash = await bcrypt.hash(test_password, 10)
-  const user_new = new User({ username: 'rooot', passwordHash })
+  const user_new = new User({ username: test_user, passwordHash })
   await user_new.save()
-  const user = await User.findOne({ username: 'rooot' })
+  const user = await User.findOne({ username: test_user })
   const userForToken = {
     username: user.username,
     id: user._id,
