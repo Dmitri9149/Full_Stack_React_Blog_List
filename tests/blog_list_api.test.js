@@ -13,9 +13,6 @@ let token
 const test_user = process.env.TEST_USER
 const test_password = process.env.TEST_PASSWORD
 
-const data = { username: test_user, password: test_password}
-
-
 beforeAll(async () => {
   await User.deleteMany({})
   const passwordHash = await bcrypt.hash(test_password, 10)
@@ -27,8 +24,7 @@ beforeAll(async () => {
     id: user._id,
   }
   token = jwt.sign(userForToken, process.env.SECRET)
-
-  console.log('jwt....token !!!!', token)
+/*  console.log('jwt....token !!!!', token) */
 })
 
 beforeEach(async () => {
@@ -57,7 +53,7 @@ test('the returned name of id is "id', async () => {
   const response = await api.get('/api/blogs')
   console.log('response', response.body)
   const id = response.body[0].id
-  console.log('id', id)
+/*  console.log('id', id) */
   expect(id).toBeDefined()
 
 })
@@ -74,8 +70,7 @@ test('after post- addition of a blog ,the length increase by 1', async () => {
     url:"some_url"
   }
 
-/*  const token = await listHelper.sampleToken()  */
-  console.log('token!!!!', token)
+/*  console.log('token!!!!', token) */
 
   await api
     .post('/api/blogs')
@@ -174,7 +169,7 @@ describe('update of a blog', () => {
     const lengthBefore = blogsBefore.length
     const blogToUpdate = blogsBefore[0]
 
-    console.log('blogs before !!!', blogToUpdate)
+/*    console.log('blogs before !!!', blogToUpdate) */
     await api
       .put(`/api/blogs/${blogToUpdate.id}`)
       .send(newBlog)
@@ -192,7 +187,7 @@ describe('bad id', () => {
   test('fails with statuscode 404 if note does not exist', async () => {
     const validNonexistingId = await listHelper.nonExistingId()
 
-    console.log(validNonexistingId)
+/*    console.log(validNonexistingId)  */
 
     await api
       .get(`/api/blogs/${validNonexistingId}`)
