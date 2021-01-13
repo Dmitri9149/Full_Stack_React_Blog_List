@@ -6,11 +6,18 @@ const app = require('../app')
 const api = supertest(app)
 const listHelper = require('../utils/list_helper')
 
+/* root_like is different from new_user */
+/* root_password is different from new_password */
+const root_like = process.env.ROOT_LIKE
+const root_password = process.env.ROOT_PASSWORD
+const new_user = process.env.NEW_USER
+const new_password = process.env.NEW_PASSWORD
+
 beforeEach(async () => {
   await User.deleteMany({})
 
-  const passwordHash = await bcrypt.hash('sekret', 10)
-  const user = new User({ username: 'root', passwordHash })
+  const passwordHash = await bcrypt.hash(root_password, 10)
+  const user = new User({ username: root_like, passwordHash })
 
   await user.save()
 })
@@ -21,9 +28,9 @@ describe('when there is initially one user at db', () => {
     const usersAtStart = await listHelper.usersInDb()
 
     const newUser = {
-      username: 'mluukkai',
+      username: new_user,
       name: 'Matti Luukkainen',
-      password: 'salainen',
+      password: new_password,
     }
 
     await api
@@ -43,7 +50,7 @@ describe('when there is initially one user at db', () => {
     const usersAtStart = await listHelper.usersInDb()
 
     const newUser = {
-      username: 'root',
+      username: root_like,
       name: 'Superuser',
       password: 'salainen',
     }
