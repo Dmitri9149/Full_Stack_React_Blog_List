@@ -9,20 +9,26 @@ const Blog = require('../models/blog')
 const User = require('../models/user')
 const listHelper = require('../utils/list_helper')
 
-let token;
+let token
 const test_user = process.env.TEST_USER
 const test_password = process.env.TEST_PASSWORD
 
-const data = { username: 'rooot', password: 'sekret'}
+const data = { username: test_user, password: test_password}
 
 
 beforeAll(async () => {
-  const response = await api
-    .post('/api/login')
-    .send(data)
+  await User.deleteMany({})
+  const passwordHash = await bcrypt.hash(test_password, 10)
+  const user_new = new User({ username: 'rooot', passwordHash })
+  await user_new.save()
+  const user = await User.findOne({ username: 'rooot' })
+  const userForToken = {
+    username: user.username,
+    id: user._id,
+  }
+  token = jwt.sign(userForToken, process.env.SECRET)
 
-  token = response.token
-
+  console.log('jwt....token !!!!', token)
 })
 
 beforeEach(async () => {
