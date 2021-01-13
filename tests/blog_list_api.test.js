@@ -51,7 +51,7 @@ test('there are two blogs', async () => {
 
 test('the returned name of id is "id', async () => {
   const response = await api.get('/api/blogs')
-  console.log('response', response.body)
+/*  console.log('response', response.body)  */
   const id = response.body[0].id
 /*  console.log('id', id) */
   expect(id).toBeDefined()
